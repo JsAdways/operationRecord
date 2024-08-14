@@ -4,6 +4,7 @@
 ```
 composer require jsadways/operationrecord
 ```
+
 ###step2 : edit config/database.php
 ```
 'connections' => [
@@ -23,6 +24,8 @@ MONGO_DB_URI=mongodb://MONGO_USER:MONGO_PASSWORD@SERVER_LOCATION
 MONGO_DB_DATABASE=YOUR_DB_NAME
 ```
 
+---
+
 #Support functions and arguments
 1. set(SetDto) : set data to MongoDB collection
 2. get(array $filter) : get one document form MongoDB collection
@@ -33,6 +36,7 @@ MONGO_DB_DATABASE=YOUR_DB_NAME
 - array filter : check filter usage from [JsAdways/scopeFilter](https://github.com/JsAdways/scopeFilter)
 
 #Usage
+
 ##create a model
 - this mode describes how to store records to  MongoDB
 - for example :
@@ -59,7 +63,11 @@ use Jsadways\Operationrecord\Services\ListDto;
 use Jsadways\Operationrecord\Services\SetDto;
 use App\Models\ExampleRecord; // the custom model class to accrss MongoDB
 ```
+
+---
+
 #Use Examples
+
 ###Set one record
 ```
 $record = new OperationRecordService(ExampleRecord::class);
