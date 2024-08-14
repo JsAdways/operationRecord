@@ -14,7 +14,6 @@ abstract class RecodeModel extends Model
         'data_id',
         'creator_id',
         'action_name',
-        'previous',
-        'next'
+        'data'
     ];
 }

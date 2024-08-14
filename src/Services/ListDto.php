@@ -2,7 +2,7 @@
 
 namespace Jsadways\Operationrecord\Services;
 
-final class OperationRecordDto
+final class ListDto
 {
     public function __construct
     (

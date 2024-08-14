@@ -13,14 +13,22 @@ class OperationRecordService
         $this->target_model = $model_class;
     }
 
-    public function set(){
-        $this->target_model::create([
-            'data_id' => 1,
-            'creator_id' => 2,
-            'action_name' => '測試新增',
-            'previous' => null,
-            'next' => '[]'
-        ]);
+    /**
+     * @throws ServiceException
+     */
+    public function set(SetDto $data){
+        try{
+            $data = get_object_vars($data);
+            return $this->target_model::create([
+                'data_id' => $data['data_id'],
+                'creator_id' => $data['creator_id'],
+                'action_name' => $data['action_name'],
+                'data' => $data['data']
+            ]);
+        }
+        catch (Throwable $throwable){
+            throw new ServiceException($this->get_error($throwable));
+        }
     }
 
     public function get(array $filter){
@@ -31,7 +39,10 @@ class OperationRecordService
         }
     }
 
-    public function list(OperationRecordDto $data){
+    /**
+     * @throws ServiceException
+     */
+    public function list(ListDto $data){
         try{
             $query_data = get_object_vars($data);
             $sort_by = $query_data['sort_by'] ?? 'id';
