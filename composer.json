@@ -1,0 +1,17 @@
+{
+    "name": "jsadways/operationrecord",
+    "autoload": {
+        "psr-4": {
+            "Jsadways\\Operationrecord\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Js-Adways",
+            "email": "it@js-adways.com.tw"
+        }
+    ],
+    "require": {
+        "mongodb/laravel-mongodb": "^4.7"
+    }
+}
