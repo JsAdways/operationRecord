@@ -10,5 +10,6 @@ final class ListDto
         public readonly ?string $sort_by = NULL,
         public readonly ?string $sort_order = NULL,
         public readonly ?int $per_page = NULL,
+        public readonly ?bool $show_diff = false,
     ){}
 }

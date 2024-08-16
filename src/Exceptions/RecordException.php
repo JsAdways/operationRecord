@@ -3,12 +3,12 @@
 namespace Jsadways\Operationrecord\Exceptions;
 
 use Exception;
-use Log;
-use Illuminate\Http\Request;
-use Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
-class BasicException extends Exception
+class RecordException extends Exception
 {
     /**
      * Report the exception.
@@ -23,6 +23,9 @@ class BasicException extends Exception
      */
     public function render(Request $request): JsonResponse
     {
-        return response()->fail($this->getMessage());
+        return Response::json([
+            'status_code' => 400,
+            'message' => $this->getMessage()
+        ],400);
     }
 }

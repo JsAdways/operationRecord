@@ -1,4 +1,4 @@
-##Install
+## Install
 
 step1 use docker-compose set up a MongoDB Server
 ```
@@ -50,16 +50,16 @@ MONGO_DB_DATABASE=YOUR_DB_NAME
 
 ---
 
-##Support functions and arguments
+## Support functions and arguments
 1. set(SetDto) : set data to MongoDB collection
 2. get(array $filter) : get one document form MongoDB collection
 3. list(ListDto) : get list of document form MongoDB collection
 
 - SetDto : Object contains $data_id,$creator_id,$action_name,$data(*optional)
-- ListDto : Object contains $filter,$sort_by,$sort_order,$per_page
+- ListDto : Object contains $filter,$sort_by,$sort_order,$per_page,$show_diff
 - array filter : check filter usage from [JsAdways/scopeFilter](https://github.com/JsAdways/scopeFilter)
 
-##Usage
+## Usage
 
 create a model
 - this mode describes how to store records to  MongoDB
@@ -90,7 +90,7 @@ use App\Models\ExampleRecord; // the custom model class to accrss MongoDB
 
 ---
 
-##Use Examples
+## Use Examples
 
 Set one record
 ```
@@ -123,6 +123,7 @@ $record = new OperationRecordService(ExampleRecord::class);
 $filter = new ListDto(
     filter: ['creator_id_eq'=>2],
     per_page:0, //per_page set 0 do not create pagination object
+    show_fidd:true
 );
 $result = $record->list($filter);
 ```
