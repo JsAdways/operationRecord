@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "mongodb/laravel-mongodb": "^4.7",
+        "mongodb/laravel-mongodb": "^5.1",
         "jsadways/scopefilter": "^1.0.0"
     }
 }
