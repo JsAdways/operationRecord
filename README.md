@@ -101,6 +101,7 @@ $array_data = [
 ];
 $data = new SetDto(
     data_id: 133,
+    data_table: 'employee'
     creator_id: 155,
     action_name: 'package_test',
     data: json_encode($array_data)

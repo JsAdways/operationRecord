@@ -12,6 +12,7 @@ abstract class RecodeModel extends Model
     protected $table;
     protected $fillable = [
         'data_id',
+        'data_table',
         'creator_id',
         'action_name',
         'data'
