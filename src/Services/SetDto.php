@@ -2,16 +2,16 @@
 
 namespace Jsadways\Operationrecord\Services;
 
+use Jsadways\Operationrecord\Enums\ActionName;
 use stdClass;
 
 final class SetDto
 {
     public function __construct
     (
-        public readonly int $data_id,
         public readonly string $data_table,
         public readonly int $creator_id,
-        public readonly string $action_name,
-        public readonly ?stdClass $data = null,
+        public readonly ?int $data_id = null,
+        public readonly ?array $data = null,
     ){}
 }

@@ -5,6 +5,16 @@
             "Jsadways\\Operationrecord\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jsadways\\Operationrecord\\Providers\\OperationRecordServiceProvider"
+            ],
+            "aliases": {
+                "OperationRecord": "Jsadways\\Operationrecord\\Facades\\OperationRecord"
+            }
+        }
+    },
     "authors": [
         {
             "name": "Js-Adways",

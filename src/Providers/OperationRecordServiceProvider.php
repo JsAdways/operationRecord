@@ -1,8 +1,9 @@
 <?php
 
-namespace Jsadways\OperationRecord;
+namespace Jsadways\Operationrecord\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Jsadways\Operationrecord\Services\OperationRecordFactory;
 
 class OperationRecordServiceProvider extends ServiceProvider
 {
@@ -11,7 +12,9 @@ class OperationRecordServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton('operation.record', function () {
+            return new OperationRecordFactory();
+        });
     }
 
     /**
@@ -19,6 +22,6 @@ class OperationRecordServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
     }
 }

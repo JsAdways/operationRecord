@@ -2,17 +2,21 @@
 
 namespace Jsadways\Operationrecord\Services;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Jsadways\Operationrecord\Enums\ActionName;
 use Jsadways\Operationrecord\Traits\LogMessage;
 use Jsadways\Operationrecord\Exceptions\RecordException;
 use Throwable;
+use function Symfony\Component\Translation\t;
 
 class OperationRecordService
 {
     use LogMessage;
 
     protected string $target_model;
+    protected string $action_name;
     public function __construct(string $model_class){
 
         $this->target_model = $model_class;
@@ -21,20 +25,54 @@ class OperationRecordService
     /**
      * @throws RecordException
      */
-    public function set(SetDto $data): collection
+    public function set(SetDto $data): Model
     {
         try{
+            if(!isset($this->action_name)){
+                throw new RecordException("action_name is null");
+            }
+
             $data = get_object_vars($data);
+            $data_id = (isset($data['id'])) ? $data['id'] : null;
+            if(!isset($data['id'])){
+                $data_id = $data['data']['id'];
+            }
+
             return $this->target_model::create([
-                'data_id' => $data['data_id'],
+                'data_id' => $data_id,
+                'data_table' => $data['data_table'],
                 'creator_id' => $data['creator_id'],
-                'action_name' => $data['action_name'],
+                'action_name' => $this->action_name,
                 'data' => $data['data']
             ]);
         }
         catch (Throwable $throwable){
             throw new RecordException($this->get_error($throwable));
         }
+    }
+
+    public function create_action(): static
+    {
+        $this->action_name = ActionName::Create->value;
+        return $this;
+    }
+
+    public function update_action(): static
+    {
+        $this->action_name = ActionName::Update->value;
+        return $this;
+    }
+
+    public function delete_action(): static
+    {
+        $this->action_name = ActionName::Delete->value;
+        return $this;
+    }
+
+    public function action(string $action_name): static
+    {
+        $this->action_name = $action_name;
+        return $this;
     }
 
     /**
