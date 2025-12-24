@@ -92,7 +92,7 @@ use App\Models\ExampleRecord; // the custom model class to accrss MongoDB
 
 ## Use Examples
 
-Set one record
+Set one record with data_id
 ```
 $record = new OperationRecordService(ExampleRecord::class);
 $array_data = [
@@ -103,10 +103,40 @@ $data = new SetDto(
     data_id: 133,
     data_table: 'employee'
     creator_id: 155,
-    action_name: 'package_test',
-    data: json_encode($array_data)
+    data: $array_data
 );
-$result = $record->set($data);
+$result = $record->create_action()->set($data);
+```
+
+Set one record without data_id(will be auto take $array_data['id])
+```
+$record = new OperationRecordService(ExampleRecord::class);
+$array_data = [
+    'id' => 1,
+    'name' => 'alvin'
+];
+$data = new SetDto(
+    data_table: 'employee'
+    creator_id: 155,
+    data: $array_data
+);
+$result = $record->create_action()->set($data);
+```
+
+using facade set record
+```
+$array_data = [
+    'id' => 1,
+    'name' => 'alvin'
+];
+
+OperationRecord::for(ExampleRecord::class)
+  ->creation_action()
+  ->set(new SetDto(
+            data_table: 'employee',
+            creator_id: 155,
+            data: $array_data
+        ))
 ```
 
 Get one record
