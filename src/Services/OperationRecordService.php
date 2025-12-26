@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Jsadways\Operationrecord\Enums\ActionName;
+use Jsadways\Operationrecord\Jobs\StoreOperationRecordJob;
 use Jsadways\Operationrecord\Traits\LogMessage;
 use Jsadways\Operationrecord\Exceptions\RecordException;
 use Throwable;
-use function Symfony\Component\Translation\t;
 
 class OperationRecordService
 {
@@ -25,26 +25,52 @@ class OperationRecordService
     /**
      * @throws RecordException
      */
-    public function set(SetDto $data): Model
+    public function set(SetDto $data, bool $async = true): Model|null
+    {
+        if (!$async) {
+            return $this->setSync($data);  // 同步模式
+        }
+
+        try {
+            if (!isset($this->action_name)) {
+                throw new RecordException("action_name is null");
+            }
+            $recordData = $this->prepareData($data);
+
+            StoreOperationRecordJob::dispatch($this->target_model, $recordData);
+
+            return null;  // 非同步模式回傳 null
+
+        } catch (Throwable $throwable) {
+            throw new RecordException($this->get_error($throwable));
+        }
+    }
+
+    protected function prepareData(SetDto $data):array
+    {
+        $data = get_object_vars($data);
+        $data_id = (isset($data['id'])) ? $data['id'] : $data['data']['id'] ?? null;
+
+        return [
+            'data_id' => $data_id,
+            'data_table' => $data['data_table'],
+            'creator_id' => $data['creator_id'],
+            'action_name' => $this->action_name,
+            'data' => $data['data']
+        ];
+    }
+
+    /**
+     * @throws RecordException
+     */
+    protected function setSync(SetDto $data): Model
     {
         try{
             if(!isset($this->action_name)){
                 throw new RecordException("action_name is null");
             }
 
-            $data = get_object_vars($data);
-            $data_id = (isset($data['id'])) ? $data['id'] : null;
-            if(!isset($data['id'])){
-                $data_id = $data['data']['id'];
-            }
-
-            return $this->target_model::create([
-                'data_id' => $data_id,
-                'data_table' => $data['data_table'],
-                'creator_id' => $data['creator_id'],
-                'action_name' => $this->action_name,
-                'data' => $data['data']
-            ]);
+            return $this->target_model::create($this->prepareData($data));
         }
         catch (Throwable $throwable){
             throw new RecordException($this->get_error($throwable));
