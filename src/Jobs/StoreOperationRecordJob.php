@@ -30,7 +30,7 @@ class StoreOperationRecordJob implements ShouldQueue
         $this->recordData = $recordData;
 
         $this->onQueue('operation-records');
-        $this->onConnection('database');
+        $this->onConnection('redis');
     }
 
     // 執行 Job
