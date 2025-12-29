@@ -63,7 +63,8 @@ MONGO_DB_DATABASE=YOUR_DB_NAME
 
 create a model
 - this mode describes how to store records to  MongoDB
-- for example :
+- use artisan command : php artisan make:operation-record Record --table=example_record
+- the result will be :
 ```
 #app/Models/ExampleRecord.php
 
@@ -78,6 +79,12 @@ class ExampleRecord extends RecodeModel
     protected $table = 'example_record';
 }
 
+```
+you can use these artisan below
+```
+php artisan make:operation-record Record --table=example_record
+php artisan make:operation-record Record --table=example_record --namespace=App\\Models
+php artisan make:operation-record Record --table=example_record --force
 ```
 
 use service in your controller
@@ -101,7 +108,7 @@ $array_data = [
 ];
 $data = new SetDto(
     data_id: 133,
-    data_table: 'employee'
+    data_source: 'employee'
     creator_id: 155,
     data: $array_data
 );
@@ -116,7 +123,7 @@ $array_data = [
     'name' => 'alvin'
 ];
 $data = new SetDto(
-    data_table: 'employee'
+    data_source: 'employee'
     creator_id: 155,
     data: $array_data
 );
@@ -133,7 +140,7 @@ $array_data = [
 OperationRecord::for(ExampleRecord::class)
   ->creation_action()
   ->set(new SetDto(
-            data_table: 'employee',
+            data_source: 'employee',
             creator_id: 155,
             data: $array_data
         ))

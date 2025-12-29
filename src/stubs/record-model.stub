@@ -1,0 +1,15 @@
+<?php
+
+  namespace {{namespace}};
+
+  use Jsadways\Operationrecord\Models\RecodeModel;
+
+  class {{class}} extends RecodeModel
+  {
+      /**
+       * The table associated with the model.
+       *
+       * @var string
+       */
+      protected $table = '{{table}}';
+  }

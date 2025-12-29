@@ -3,6 +3,7 @@
 namespace Jsadways\Operationrecord\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Jsadways\Operationrecord\Console\Commands\MakeRecordModelCommand;
 use Jsadways\Operationrecord\Services\OperationRecordFactory;
 
 class OperationRecordServiceProvider extends ServiceProvider
@@ -22,6 +23,11 @@ class OperationRecordServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        // 註冊 commands（僅在 console 環境）
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                MakeRecordModelCommand::class,
+            ]);
+        }
     }
 }
