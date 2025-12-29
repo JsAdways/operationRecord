@@ -8,6 +8,8 @@ use Jsadways\Operationrecord\Services\SetDto;
 
 trait RecordsOperation
 {
+    abstract protected function getCreatorId(): int|string;
+    abstract protected function getRecordModel(): string;
     /**
      * @throws Exception
      */
@@ -29,26 +31,8 @@ trait RecordsOperation
         ));
     }
 
-    /**
-     * @throws Exception
-     */
-    protected function getRecordModel(): string
-    {
-        return $this->record_model
-            ?? throw new Exception('Please set $record_model property');
-    }
-
     protected function getDataTable(): string
     {
         return strtolower(str_replace('Controller', '', class_basename($this)));
-    }
-
-    /**
-     * @throws Exception
-     */
-    protected function getCreatorId(): int|string
-    {
-        return $this->creator_id
-            ?? throw new Exception('Please set $creator_id property');
     }
 }
