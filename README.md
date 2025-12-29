@@ -139,6 +139,29 @@ OperationRecord::for(ExampleRecord::class)
         ))
 ```
 
+using traits in BaseController
+```
+class Controller extends BaseController
+{
+    use RecordsOperation;
+    
+    protected $record_model = ExampleRecord::class;
+    protected $creator_id = 172;
+}
+
+class BusinessController extends Controller
+{
+    public function create(Request $request)
+    {
+        $array_data = [
+            'id' => 1,
+            'name' => 'alvin'
+        ];
+        $this->recordOperation(ActionName::Create,$array_data);
+    }
+}
+```
+
 Get one record
 ```
 $record = new OperationRecordService(ExampleRecord::class);
