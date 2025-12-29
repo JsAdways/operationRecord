@@ -145,8 +145,15 @@ class Controller extends BaseController
 {
     use RecordsOperation;
     
-    protected $record_model = ExampleRecord::class;
-    protected $creator_id = 172;
+    protected function getCreatorId(): int|string
+    {
+        return 172;
+    }
+
+    protected function getRecordModel(): string
+    {
+        return ExampleRecord::class;
+    }
 }
 
 class BusinessController extends Controller
