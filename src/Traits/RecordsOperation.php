@@ -13,7 +13,7 @@ trait RecordsOperation
     /**
      * @throws Exception
      */
-    protected function recordOperation(ActionName|string $action, array $data, ?int $creator_id = null, ?string $data_table = null): void
+    protected function recordOperation(ActionName|string $action, array $data, ?int $creator_id = null, ?string $data_source = null): void
     {
         $recordModel = $this->getRecordModel();
 
@@ -25,13 +25,13 @@ trait RecordsOperation
         };
 
         $operationRecord->set(new SetDto(
-            data_table: $data_table ?? $this->getDataTable(),
+            data_source: $data_source ?? $this->getDataSource(),
             creator_id: $creator_id ?? $this->getCreatorId(),
             data: $data
         ));
     }
 
-    protected function getDataTable(): string
+    protected function getDataSource(): string
     {
         return strtolower(str_replace('Controller', '', class_basename($this)));
     }

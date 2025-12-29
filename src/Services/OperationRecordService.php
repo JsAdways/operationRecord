@@ -53,7 +53,7 @@ class OperationRecordService
 
         return [
             'data_id' => $data_id,
-            'data_table' => $data['data_table'],
+            'data_source' => $data['data_source'],
             'creator_id' => $data['creator_id'],
             'action_name' => $this->action_name,
             'data' => $data['data']
