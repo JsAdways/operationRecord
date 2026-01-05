@@ -13,7 +13,7 @@ trait RecordsOperation
     /**
      * @throws Exception
      */
-    protected function recordOperation(ActionName|string $action, array $data, ?string $memo, ?int $creator_id = null, ?string $data_source = null): void
+    protected function recordOperation(ActionName|string $action, array $data, ?string $memo = null, ?int $creator_id = null, ?string $data_source = null): void
     {
         $recordModel = $this->getRecordModel();
 
