@@ -57,7 +57,7 @@ class OperationRecordService
             'creator_id' => $data['creator_id'],
             'action_name' => $this->action_name,
             'data' => $data['data'],
-            'memo' => $data['memo']
+            'memo' => isset($data['memo']) ?? null,
         ];
     }
 
