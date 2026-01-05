@@ -10,6 +10,6 @@ final class SetDto
         public readonly int $creator_id,
         public readonly ?int $data_id = null,
         public readonly ?array $data = null,
-        public readonly ?string $meno = null,
+        public readonly ?string $memo = null,
     ){}
 }

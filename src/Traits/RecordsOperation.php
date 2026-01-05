@@ -28,7 +28,7 @@ trait RecordsOperation
             data_source: $data_source ?? $this->getDataSource(),
             creator_id: $creator_id ?? $this->getCreatorId(),
             data: $data,
-            meno: $memo
+            memo: $memo
         ));
     }
 
