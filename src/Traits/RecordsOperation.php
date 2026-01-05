@@ -13,7 +13,7 @@ trait RecordsOperation
     /**
      * @throws Exception
      */
-    protected function recordOperation(ActionName|string $action, array $data, ?int $creator_id = null, ?string $data_source = null): void
+    protected function recordOperation(ActionName|string $action, array $data, ?string $memo, ?int $creator_id = null, ?string $data_source = null): void
     {
         $recordModel = $this->getRecordModel();
 
@@ -27,7 +27,8 @@ trait RecordsOperation
         $operationRecord->set(new SetDto(
             data_source: $data_source ?? $this->getDataSource(),
             creator_id: $creator_id ?? $this->getCreatorId(),
-            data: $data
+            data: $data,
+            meno: $memo
         ));
     }
 
