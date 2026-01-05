@@ -56,7 +56,8 @@ class OperationRecordService
             'data_source' => $data['data_source'],
             'creator_id' => $data['creator_id'],
             'action_name' => $this->action_name,
-            'data' => $data['data']
+            'data' => $data['data'],
+            'memo' => $data['memo']
         ];
     }
 

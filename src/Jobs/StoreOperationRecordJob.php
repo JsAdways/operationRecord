@@ -6,6 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class StoreOperationRecordJob implements ShouldQueue
@@ -34,6 +35,10 @@ class StoreOperationRecordJob implements ShouldQueue
     }
 
     // 執行 Job
+
+    /**
+     * @throws Throwable
+     */
     public function handle(): void
     {
         try {

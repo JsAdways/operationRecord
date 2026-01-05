@@ -15,6 +15,7 @@ abstract class RecodeModel extends Model
         'data_source',
         'creator_id',
         'action_name',
-        'data'
+        'data',
+        'memo',
     ];
 }
