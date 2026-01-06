@@ -110,7 +110,8 @@ $data = new SetDto(
     data_id: 133,
     data_source: 'employee'
     creator_id: 155,
-    data: $array_data
+    data: $array_data,
+    memo: 'test data'
 );
 $result = $record->create_action()->set($data);
 ```
@@ -125,7 +126,8 @@ $array_data = [
 $data = new SetDto(
     data_source: 'employee'
     creator_id: 155,
-    data: $array_data
+    data: $array_data,
+    memo: 'test data'
 );
 $result = $record->create_action()->set($data);
 ```
@@ -142,7 +144,8 @@ OperationRecord::for(ExampleRecord::class)
   ->set(new SetDto(
             data_source: 'employee',
             creator_id: 155,
-            data: $array_data
+            data: $array_data,
+            memo: 'test data'
         ))
 ```
 
@@ -171,7 +174,11 @@ class BusinessController extends Controller
             'id' => 1,
             'name' => 'alvin'
         ];
-        $this->recordOperation(ActionName::Create,$array_data);
+        $this->recordOperation(
+            action:ActionName::Create,
+            data:$array_data,
+            memo:'test data'
+        );
     }
 }
 ```
