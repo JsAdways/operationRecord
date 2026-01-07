@@ -202,3 +202,42 @@ $filter = new ListDto(
 );
 $result = $record->list($filter);
 ```
+
+using facade read record
+```
+OperationRecord::for(ExampleRecord::class)
+  ->list(new ListDto(
+            filter: ['creator_id_eq' => 123],
+            per_page: 10,
+            page: 1,
+            show_diff: false
+        ))
+```
+
+using traits in BaseController
+```
+class Controller extends BaseController
+{
+    use ReadRecords;
+
+    protected function getRecordModel(): string
+    {
+        return ExampleRecord::class;
+    }
+}
+
+class BusinessController extends Controller
+{
+    public function Read(Request $request)
+    {
+        $this->readRecord(
+            filter: ['creator_id_eq' => 123],
+            sort_by: 'id',
+            sort_order: 'desc',
+            per_page: 10,
+            page: 1,
+            show_diff: false
+        );
+    }
+}
+```
