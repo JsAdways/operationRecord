@@ -18,4 +18,6 @@ abstract class RecodeModel extends Model
         'data',
         'memo',
     ];
+
+    public array $int_columns = ['creator_id','data_id'];
 }

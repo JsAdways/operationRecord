@@ -129,6 +129,9 @@ class OperationRecordService
             $filter = $query_data['filter'] ?? [];
             $show_diff = $query_data['show_diff'];
 
+            $int_columns = $this->_get_int_columns();
+            $filter = $this->_format_int_columns($int_columns,$filter);
+
             $query = $this->target_model::filter($filter)->orderBy($sort_by, $sort_order);
 
             if ($per_page) {
@@ -182,5 +185,22 @@ class OperationRecordService
         }catch (Throwable $throwable){
             throw new RecordException($this->get_error($throwable));
         }
+    }
+
+    protected function _get_int_columns(): array
+    {
+        return (new $this->target_model)->int_columns;
+    }
+
+    protected function _format_int_columns(array $int_columns,array $filter): array
+    {
+        return array_map(function($key) use($int_columns,$filter){
+            $length = count(explode('_', $key)) - 1;
+            $column_name = implode('_', array_slice(explode('_', $key), 0, $length));
+
+            if(in_array($column_name, $int_columns)){
+                $filter[$key] = (int)$filter[$key];
+            }
+        },array_keys($filter));
     }
 }
