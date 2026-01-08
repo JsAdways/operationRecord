@@ -194,13 +194,16 @@ class OperationRecordService
 
     protected function _format_int_columns(array $int_columns,array $filter): array
     {
-        return array_map(function($key) use($int_columns,$filter){
-            $length = count(explode('_', $key)) - 1;
-            $column_name = implode('_', array_slice(explode('_', $key), 0, $length));
+        foreach ($filter as $key => $value) {
+            $parts = explode('_', $key);
+            array_pop($parts);
+            $column_name = implode('_', $parts);
 
-            if(in_array($column_name, $int_columns)){
-                $filter[$key] = (int)$filter[$key];
+            if (in_array($column_name, $int_columns, true)) {
+                $filter[$key] = (int) $value;
             }
-        },array_keys($filter));
+        }
+
+        return $filter;
     }
 }
